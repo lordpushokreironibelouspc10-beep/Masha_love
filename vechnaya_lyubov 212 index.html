@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#170d19">
+<title>Союз вечной любви</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap');
+:root{--bg:#120b16;--panel:#211321;--panel2:#2d1929;--rose:#f0a9bb;--rose2:#c66b88;--gold:#d9bd85;--cream:#fff8ee;--ink:#422735;--muted:#d3b9c8;--line:#684052}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;color:#fff5fa;background:radial-gradient(ellipse at 50% -10%,#5b2c4b 0%,transparent 47%),radial-gradient(circle at 0% 70%,#2b1831 0%,transparent 35%),var(--bg);font-family:Manrope,Arial,sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.2;background-image:radial-gradient(#f5dce6 0.7px,transparent .7px);background-size:28px 28px;mask-image:linear-gradient(to bottom,black,transparent 85%)}
+.wrap{width:min(760px,100%);margin:0 auto;padding:30px 16px 56px;position:relative}
+.topline{display:flex;justify-content:center;align-items:center;gap:12px;color:var(--gold);font-size:10px;letter-spacing:3px;text-transform:uppercase;margin:4px 0 22px}
+.topline:before,.topline:after{content:"";height:1px;width:45px;background:linear-gradient(90deg,transparent,var(--gold))}
+.topline:after{transform:scaleX(-1)}
+.hero{text-align:center;margin:0 auto 26px;max-width:600px}
+.emblem{width:72px;height:72px;border:1px solid #b98196;border-radius:50%;display:grid;place-items:center;margin:0 auto 17px;color:var(--rose);font-size:29px;box-shadow:0 0 35px #e78baa26,inset 0 0 22px #e78baa12;position:relative}
+.emblem:before{content:"";position:absolute;inset:6px;border:1px solid #9d667e;border-radius:50%}
+h1,h2,.cert-title,.names{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500}
+h1{font-size:clamp(38px,8vw,61px);line-height:.96;letter-spacing:.2px;margin:0;color:#fff1f6}
+h1 span{display:block;color:var(--rose);font-style:italic;margin-top:7px}
+.subtitle{color:var(--muted);font-size:14px;line-height:1.8;max-width:470px;margin:17px auto 0}
+.panel{background:linear-gradient(145deg,#2a1a2bdf,#1b111feF);border:1px solid #684052;border-radius:25px;padding:clamp(23px,5vw,42px);box-shadow:0 24px 70px #0004;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.panel:before{content:"";position:absolute;top:0;left:12%;right:12%;height:1px;background:linear-gradient(90deg,transparent,#d9bd85aa,transparent)}
+.step{display:none}.step.active{display:block;animation:rise .55s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.step-label{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:13px}
+h2{font-size:clamp(29px,5.5vw,39px);line-height:1.1;margin:0 0 10px;color:#fff2f7}
+.lead{font-size:14px;color:var(--muted);line-height:1.8;margin:0 0 22px}
+label{display:block;color:#f0dce5;font-size:12px;letter-spacing:.3px;margin:17px 0 8px}
+input{display:block;width:100%;padding:15px 16px;border:1px solid #684052;border-radius:13px;background:#160e19;color:#fff5fa;font:500 15px Manrope,Arial,sans-serif;outline:none;transition:border .2s,box-shadow .2s}
+input::placeholder{color:#98788a}
+input:focus{border-color:var(--rose);box-shadow:0 0 0 3px #e99ab51e}
+button{font:700 13px Manrope,Arial,sans-serif;letter-spacing:.4px;cursor:pointer;border:0;border-radius:13px;padding:16px 19px;width:100%;margin-top:21px;transition:transform .2s,filter .2s}
+button:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.primary{background:linear-gradient(110deg,#f0b6c7,#d77e9c);color:#301522;box-shadow:0 9px 26px #ce789526}
+.secondary{background:#382238;color:#f4c8d7;border:1px solid #765065}
+.error{color:#ff9fb4;font-size:12px;line-height:1.6;min-height:18px;margin-top:11px}
+.note{font-size:11px;line-height:1.7;color:#b99aaa;margin-top:15px}
+.step-number{display:flex;justify-content:center;gap:8px;margin:0 0 23px}
+.dot{width:25px;height:3px;border-radius:9px;background:#59374b}.dot.on{background:var(--rose)}
+.vow{font-family:"Cormorant Garamond",Georgia,serif;font-size:22px;line-height:1.55;text-align:center;color:#f4dce6;margin:18px 0 24px}
+.quote-mark{font-size:37px;line-height:.7;color:var(--gold)}
+.signature-box{border:1px solid #916078;border-radius:15px;background:#fffaf6;overflow:hidden;box-shadow:inset 0 0 0 5px #f5e8e5;touch-action:none}
+canvas{width:100%;height:190px;display:block;touch-action:none;cursor:crosshair;user-select:none;-webkit-user-select:none}
+.sign-hint{font-size:11px;color:#c5a8b8;margin-top:9px}
+.certificate{display:none;background:var(--cream);color:var(--ink);padding:clamp(23px,5vw,46px);border:3px solid var(--gold);outline:1px solid #b89454;outline-offset:-10px;text-align:center;position:relative;min-height:600px;box-shadow:0 25px 70px #0005}
+.certificate.show{display:block;animation:rise .7s ease both}
+.cert-inner{border:1px solid #e0cba7;padding:28px 15px 20px;min-height:520px}
+.cert-flourish{font-size:26px;letter-spacing:8px;color:#b28b4d}
+.cert-kicker{font:600 9px Manrope,sans-serif;letter-spacing:3px;text-transform:uppercase;color:#9b7642;margin:17px 0}
+.cert-title{font-size:clamp(32px,7vw,48px);line-height:.98;color:#76283c;margin:15px 0 20px}
+.cert-copy{font-size:13px;line-height:1.8;color:#775b5e}
+.names{font-size:clamp(26px,5.5vw,37px);line-height:1.15;color:#76283c;margin:14px 0}
+.amp{font-size:20px;color:#b58b4f;font-style:italic;margin:5px}
+.cert-rule{height:1px;background:linear-gradient(90deg,transparent,#c7a46b,transparent);margin:22px 0}
+.cert-vow{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(20px,4vw,24px);line-height:1.48;color:#583843;max-width:510px;margin:0 auto}
+.cert-blessing{font:italic 12px Manrope,sans-serif;line-height:1.8;color:#98776f;margin:17px auto;max-width:430px}
+.signatures{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:24px}
+.sigblock{min-width:0}.sigblock img{width:100%;height:60px;object-fit:contain;display:block}
+.sigline{border-top:1px solid #b49a83;padding-top:8px;font-size:10px;color:#6d5054}
+.stamp{font-size:9px;letter-spacing:1.5px;color:#9b7642;margin-top:24px}
+.legal{font:9px Manrope,sans-serif;line-height:1.6;color:#9c8986;margin:15px auto 0;max-width:450px}
+@media(max-width:460px){.wrap{padding:23px 12px 40px}.signatures{gap:12px}.cert-inner{padding:23px 10px 16px}.certificate{min-height:0}.sigline{font-size:9px}}
+@media print{
+ @page{size:A4 portrait;margin:10mm}
+ body{background:white!important;color:#222}.wrap{width:100%;max-width:none;padding:0}
+ .topline,.hero,.panel:not(#certificatePanel),.no-print{display:none!important}
+ #certificatePanel{display:block!important;padding:0;border:0;background:transparent;box-shadow:none;overflow:visible}
+ .certificate{display:block!important;min-height:270mm;box-shadow:none;padding:8mm;background:#fff8ee!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .cert-inner{min-height:250mm;padding:12mm 7mm 8mm}
+}
+
+.quiz-form .choice{display:flex;align-items:center;gap:12px;padding:14px 15px;border:1px solid #684052;border-radius:13px;background:#160e19;margin:10px 0;color:#f4dce6;cursor:pointer;font-size:14px;transition:border .2s,background .2s}
+.quiz-form .choice:has(input:checked){border-color:#f0a9bb;background:#3a2034}
+.quiz-form .choice input{width:17px;height:17px;flex:0 0 auto;margin:0;accent-color:#d77e9c}
+.quiz-form .choice span{flex:1}
+
+
+/* Softer, sweeter romantic styling */
+body{
+  color:#61384b;
+  background:
+    radial-gradient(circle at 12% 12%,#fff9fc 0 5%,transparent 24%),
+    radial-gradient(circle at 90% 24%,#ffe4ed 0 4%,transparent 22%),
+    linear-gradient(145deg,#fff1f6 0%,#ffe7ef 45%,#f8e8ff 100%);
+}
+body:before{opacity:.28;background-image:radial-gradient(#d989a9 1px,transparent 1px);background-size:24px 24px}
+.topline{color:#c77d9a;letter-spacing:2px}
+.topline:before,.topline:after{background:linear-gradient(90deg,transparent,#e8a8bf)}
+.emblem{background:#fff9fc;border:1px solid #f0bfd0;color:#e77fa4;box-shadow:0 8px 35px #d97e9d24,inset 0 0 22px #e78baa12}
+.emblem:before{border-color:#f3cada}
+h1{color:#7b4261}
+h1 span{color:#df83a4}
+.subtitle{color:#9c6b84}
+.panel{background:linear-gradient(145deg,#fffdfef2,#fff4f8f5);border:1px solid #f0c9d7;box-shadow:0 18px 48px #b75c7d18;backdrop-filter:blur(10px)}
+.panel:before{background:linear-gradient(90deg,transparent,#e8a8bf,transparent)}
+.step-label{color:#c27a98}
+h2{color:#854766}
+.lead{color:#a16f87}
+label{color:#89536f}
+input{border-color:#f0c8d8;background:#fffafd;color:#70425a}
+input::placeholder{color:#c19aab}
+input:focus{border-color:#e18eac;box-shadow:0 0 0 3px #e99ab51e}
+.primary{background:linear-gradient(110deg,#f6bfd1,#f19ab8);color:#713b55;box-shadow:0 9px 24px #d8799c24}
+.secondary{background:#fff0f6;color:#a65379;border:1px solid #efc1d2}
+.error{color:#c14f79}
+.note,.sign-hint{color:#ad8096}
+.dot{background:#f0cbd8}.dot.on{background:#e78eac}
+.vow{color:#9b5577}
+.quote-mark{color:#e5a0b7}
+.signature-box{border:1px solid #e8b6c9;background:#fffdfd;box-shadow:inset 0 0 0 5px #fff1f6}
+.quiz-form .choice{border-color:#f0c8d8;background:#fffafd;color:#8b4f6e}
+.quiz-form .choice:has(input:checked){border-color:#e58eae;background:#ffedf4}
+.quiz-form .choice input{accent-color:#e78eac}
+.certificate{background:#fff7fb;color:#6f3b55;border:3px solid #f0bfd0;outline-color:#e8a7bf;box-shadow:0 25px 70px #b75c7d20}
+.cert-inner{border-color:#f1cbd9}
+.cert-flourish{color:#e08aa9}
+.cert-kicker{color:#bd7995}
+.cert-title,.names{color:#b34f79}
+.amp{color:#e19ab4}
+.cert-rule{background:linear-gradient(90deg,transparent,#e8a8bf,transparent)}
+.cert-vow{color:#89536f}
+.cert-blessing{color:#b17b94}
+.sigline{border-color:#e0b4c4;color:#94677c}
+.stamp{color:#bd7995}
+.legal{color:#b18e9d}
+@media print{
+ body{background:white!important}
+ .certificate{background:#fff7fb!important}
+}
+
+
+.answers-record{max-width:470px;margin:20px auto 8px;text-align:left;padding:14px 16px;background:#fff0f6;border:1px solid #f0c9d7;border-radius:15px}
+.answers-title{text-align:center;color:#b34f79;font:600 13px Manrope,sans-serif;margin-bottom:8px}
+.answer-line{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px dashed #e8bfd0;font:11px Manrope,sans-serif;color:#93657c}
+.answer-line:last-child{border-bottom:0}
+.answer-line strong{color:#9d4168;text-align:right}
+
+
+/* Improved text contrast for readability */
+body { color: #49313d; }
+h1, h2, h3, .title, .heading { color: #572b42; }
+p, label, .lead, .subtitle, .description { color: #563b48; }
+small, .muted, .hint, .eyebrow { color: #6c4c5a; }
+input, select, textarea, button { color: #432b38; }
+input::placeholder, textarea::placeholder { color: #765b68; opacity: 1; }
+
+/* Strong high-contrast readability pass */
+:root {
+  --text: #24131d !important;
+  --ink: #24131d !important;
+  --muted: #49313d !important;
+}
+body { color: #24131d !important; }
+h1, h2, h3, h4, strong, b, .title, .heading, .eyebrow {
+  color: #32101f !important;
+  text-shadow: none !important;
+}
+p, label, li, span, .lead, .subtitle, .description, .muted, .hint,
+small, .question, .step-title, .certificate-text {
+  color: #38212d !important;
+  text-shadow: none !important;
+}
+button, .btn, input, select, textarea {
+  color: #24131d !important;
+  font-weight: 600;
+}
+button, .btn { border-color: #a45b79 !important; }
+input, select, textarea {
+  background: #fffdfd !important;
+  border: 2px solid #9b5874 !important;
+}
+input::placeholder, textarea::placeholder {
+  color: #624453 !important;
+  opacity: 1 !important;
+}
+a { color: #702447 !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topline">A promise made with love</div>
+  <header class="hero">
+    <div class="emblem">♥</div>
+    <h1>Союз <span>вечной любви</span></h1>
+    <p class="subtitle">Маленькая церемония для двух сердец.</p>
+  </header>
+
+  <section class="panel step active" id="step1">
+    <div class="step-label">Послание от Алекса ♥</div>
+    <h2>Зайка, это для тебя</h2>
+    <p class="lead" style="font-size:16px;line-height:1.95;color:#f4dce6">
+      Зайка я тебя очень очень сильно люблю ты для меня самое дорогое что есть мы всё пройдем вместе и в итоге перед нами откроется светлое и длинное будущее в радости и счастья а если у нас будут иногда плохие дни мы будем укрываться под одеялом смотреть ужастик и кушать мороженное
+      <span style="display:block;text-align:center;color:#f0a9bb;font-weight:700;margin-top:15px;letter-spacing:1px">ЛЮБЛЮ ТЕБЯ ОЧЕНЬ ОЧЕНЬ СИЛЬНО &lt;3</span>
+    </p>
+    <button class="primary" type="button" id="startCeremony">Продолжить нашу историю ♥ →</button>
+  </section>
+
+  <section class="panel step" id="step2">
+    <div class="step-number"><span class="dot on"></span><span class="dot"></span><span class="dot"></span></div>
+    <div class="step-label">01 · Знакомство</div>
+    <h2>Как тебя зовут?</h2>
+    <p class="lead">Каждая красивая история начинается с двух имён.</p>
+    <form id="girlForm">
+      <label for="girlFirst">Твоё имя</label>
+      <input id="girlFirst" autocomplete="off" required>
+      <label for="girlLast">Твоя фамилия</label>
+      <input id="girlLast" autocomplete="off" required>
+      <button class="primary" type="submit">Продолжить →</button>
+    </form>
+    <div class="error" id="err1" aria-live="polite"></div>
+  </section>
+
+  <section class="panel step" id="step3">
+    <div class="step-number"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></div>
+    <div class="step-label">02 · Особенный человек</div>
+    <h2>Как его зовут ?</h2>
+    <p class="lead">Кто твой любимый ?</p>
+    <form id="boyForm">
+      <label for="boyFirst">Имя</label>
+      <input id="boyFirst" autocomplete="off" required>
+      <label for="boyLast">Фамилия</label>
+      <input id="boyLast" autocomplete="off" required>
+      <button class="primary" type="submit">Проверить ответ →</button>
+    </form>
+    <div class="error" id="err2" aria-live="polite"></div>
+  </section>
+
+  <section class="panel step" id="step4">
+    <div class="step-label">03 · Воспоминание № 1</div>
+    <h2>Когда мы начали встречаться?</h2>
+    <p class="lead">Выбери правильную дату.</p>
+    <form id="quiz1" class="quiz-form">
+      <label class="choice"><input type="radio" name="q1" value="16.11.25" required> <span>16.11.25</span></label>
+      <label class="choice"><input type="radio" name="q1" value="11.12.25"> <span>11.12.25</span></label>
+      <label class="choice"><input type="radio" name="q1" value="26.10.25"> <span>26.10.25</span></label>
+      <button class="primary" type="submit">Следующий вопрос →</button>
+    </form>
+    <div class="error" id="quizErr1" aria-live="polite"></div>
+  </section>
+
+  <section class="panel step" id="step5">
+    <div class="step-label">04 · Воспоминание № 2</div>
+    <h2>Какая твоя любимая поездка со мной?</h2>
+    <p class="lead">Выбери то воспоминание, которое мы загадали.</p>
+    <form id="quiz2" class="quiz-form">
+      <label class="choice"><input type="radio" name="q2" value="Троодос" required> <span>Троодос</span></label>
+      <label class="choice"><input type="radio" name="q2" value="Диимери"> <span>Диимери</span></label>
+      <label class="choice"><input type="radio" name="q2" value="Лунапарк+Агианапа"> <span>Лунапарк + Агианапа</span></label>
+      <button class="primary" type="submit">Следующий вопрос →</button>
+    </form>
+    <div class="error" id="quizErr2" aria-live="polite"></div>
+  </section>
+
+  <section class="panel step" id="step6">
+    <div class="step-label">05 · Наше будущее <span style="color:#f0a9bb">♥</span></div>
+    <h2>Сколько детей ты бы хотела?</h2>
+    <p class="lead">Здесь нет неправильного ответа — выбери то, что чувствуешь.</p>
+    <form id="quiz3" class="quiz-form">
+      <label class="choice"><input type="radio" name="q3" value="1" required> <span>1</span></label>
+      <label class="choice"><input type="radio" name="q3" value="2"> <span>2</span></label>
+      <label class="choice"><input type="radio" name="q3" value="3"> <span>3</span></label>
+      <label class="choice"><input type="radio" name="q3" value="Бесконечность"> <span>Бесконечность ♡</span></label>
+      <button class="primary" type="submit">Перейти к подписи →</button>
+    </form>
+    <div class="error" id="quizErr3" aria-live="polite"></div>
+  </section>
+
+  <section class="panel step" id="step7">
+    <div class="step-number"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div>
+    <div class="step-label">06 · Обещание</div>
+    <h2>Оставь свой знак любви</h2>
+    <p class="lead">Подпись Алекса уже будет в свидетельстве. Теперь добавь свою подпись пальцем на экране или мышью.</p>
+    <div class="vow"><div class="quote-mark">“</div>В радости и в грусти, в бедности и в богатстве, в трудные дни и в счастливые моменты — хранить любовь, уважение и заботу друг о друге.<div class="quote-mark">”</div></div>
+    <label for="signature">Твоя подпись, Маша</label>
+    <div class="signature-box"><canvas id="signature" aria-label="Поле для подписи Маши"></canvas></div>
+    <div class="sign-hint">Это поле только для подписи Маши. Подпись Алекса уже подготовлена отдельно для свидетельства.</div>
+    <button type="button" class="secondary" id="clearSign">Очистить свою подпись</button>
+    <button type="button" class="primary" id="finish">Создать свидетельство ♥</button>
+    <div class="error" id="err7" aria-live="polite"></div>
+  </section>
+
+  <section class="panel" id="certificatePanel" style="display:none">
+    <div class="certificate" id="certificate">
+      <div class="cert-inner">
+        <div class="cert-flourish">❦ ♥ ❦</div>
+        <div class="cert-kicker">Символический документ для двоих</div>
+        <div class="cert-title">Свидетельство<br>о вечной любви</div>
+        <div class="cert-copy">Настоящим подтверждается, что</div>
+        <div class="names"><span id="certGirl">Маша Белоус</span><div class="amp">и</div><span id="certBoy">Алекс Белоус</span></div>
+        <div class="cert-rule"></div>
+        <div class="cert-vow">Добровольно выбирают друг друга и обещают хранить любовь, уважение и заботу — в радости и в грусти, в бедности и в богатстве, в трудные дни и в счастливые моменты.</div>
+        <div class="cert-blessing">Пусть эта история пишется каждый день — добротой, доверием и теплом.</div>
+        <div class="answers-record">
+          <div class="answers-title">Наши маленькие воспоминания ♥</div>
+          <div class="answer-line"><span>Когда мы начали встречаться?</span><strong>16.11.25</strong></div>
+          <div class="answer-line"><span>Любимая поездка вместе</span><strong id="certTrip">—</strong></div>
+          <div class="answer-line"><span>Сколько детей хотелось бы?</span><strong id="certKids">—</strong></div>
+        </div>
+        <div class="signatures">
+          <div class="sigblock"><img id="signatureImage" alt="Подпись Маши"><div class="sigline" id="girlSigLabel">Подпись Маши Белоус</div></div>
+          <div class="sigblock">
+            <svg viewBox="0 0 240 75" role="img" aria-label="Декоративная подпись Алекса" style="width:100%;height:60px;display:block">
+              <path d="M12 45 C18 12 28 9 25 43 C24 53 39 29 47 30 C56 31 41 51 51 50 C64 48 67 21 74 20 C80 20 68 50 78 50 C89 49 95 30 105 31 C116 32 100 51 112 49 C125 48 129 24 136 25 C144 27 132 50 144 48 C157 46 163 33 174 34 C183 35 169 48 182 46 C193 44 200 37 211 30" fill="none" stroke="#76283c" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8 58 C60 53 118 59 211 39" fill="none" stroke="#76283c" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+            <div class="sigline">Алекс Белоус</div>
+          </div>
+        </div>
+        <div class="stamp">СОЗДАНО С ЛЮБОВЬЮ · <span id="certDate"></span></div>
+        <div class="legal">Романтический символический документ. Не является официальным юридическим свидетельством.</div>
+      </div>
+    </div>
+    <div class="no-print">
+      <button type="button" class="primary" id="savePdf">Сохранить свидетельство в PDF / Печать</button>
+      <p class="note">В окне печати выбери «Сохранить как PDF». Для лучшего результата включи печать фонов, если такая настройка доступна.</p>
+    </div>
+  </section>
+</div>
+<script>
+const expectedGirlFirst = "Маша";
+const expectedGirlLast = "Михаэль";
+const expectedBoyFirst = "Алекс";
+const expectedBoyLast = "Белоус";
+let enteredGirlFirst = "";
+let enteredGirlLast = "";
+function norm(s){return s.trim().toLocaleLowerCase("ru-RU").replace(/\s+/g," ")}
+function showStep(n){
+  document.querySelectorAll(".step").forEach(e=>e.classList.remove("active"));
+  document.getElementById("step"+n).classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+document.getElementById("startCeremony").addEventListener("click",()=>showStep(2));
+document.getElementById("girlForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const first=document.getElementById("girlFirst").value.trim();
+  const last=document.getElementById("girlLast").value.trim();
+  if(norm(first)!==norm(expectedGirlFirst)||norm(last)!==norm(expectedGirlLast)){
+    document.getElementById("err1").textContent="Проверь имя и фамилию и попробуй ещё раз.";
+    return;
+  }
+  enteredGirlFirst=first; enteredGirlLast=last;
+  document.getElementById("err1").textContent="";
+  showStep(3);
+});
+document.getElementById("boyForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const first=document.getElementById("boyFirst").value;
+  const last=document.getElementById("boyLast").value;
+  if(norm(first)!==norm(expectedBoyFirst)||norm(last)!==norm(expectedBoyLast)){
+    document.getElementById("err2").textContent="Это не совсем верно. Попробуй ещё раз.";
+    return;
+  }
+  document.getElementById("err2").textContent="";
+  showStep(4);
+});
+document.getElementById("quiz1").addEventListener("submit",e=>{
+  e.preventDefault();
+  const a=new FormData(e.currentTarget).get("q1");
+  if(a!=="16.11.25"){
+    document.getElementById("quizErr1").textContent="Не совсем верно. Попробуй вспомнить нашу дату ♥";
+    return;
+  }
+  document.getElementById("quizErr1").textContent="";
+  showStep(5);
+});
+document.getElementById("quiz2").addEventListener("submit",e=>{
+  e.preventDefault();
+  const a=new FormData(e.currentTarget).get("q2");
+  if(!a){document.getElementById("quizErr2").textContent="Выбери своё любимое воспоминание ♥";return}
+  document.getElementById("quizErr2").textContent="";
+  showStep(6);
+});
+document.getElementById("quiz3").addEventListener("submit",e=>{
+  e.preventDefault();
+  const a=new FormData(e.currentTarget).get("q3");
+  if(!a){document.getElementById("quizErr3").textContent="Выбери то, что тебе ближе ♥";return}
+  document.getElementById("quizErr3").textContent="";
+  showStep(7);
+});
+
+const canvas=document.getElementById("signature");
+const ctx=canvas.getContext("2d");
+let drawing=false,hasInk=false,lastPoint=null;
+function configureContext(){
+  ctx.strokeStyle="#76283c";ctx.lineWidth=2.4;ctx.lineCap="round";ctx.lineJoin="round";
+}
+function setupCanvas(){
+  const rect=canvas.getBoundingClientRect();
+  if(!rect.width)return;
+  const dpr=Math.max(1,window.devicePixelRatio||1);
+  let snapshot=null;
+  if(hasInk){try{snapshot=canvas.toDataURL("image/png")}catch(e){}}
+  canvas.width=Math.round(rect.width*dpr);
+  canvas.height=Math.round(190*dpr);
+  ctx.setTransform(dpr,0,0,dpr,0,0);configureContext();
+  if(snapshot){
+    const img=new Image();
+    img.onload=()=>ctx.drawImage(img,0,0,rect.width,190);
+    img.src=snapshot;
+  }
+}
+function getPoint(e){
+  const rect=canvas.getBoundingClientRect();
+  return {x:e.clientX-rect.left,y:e.clientY-rect.top};
+}
+canvas.addEventListener("pointerdown",e=>{
+  e.preventDefault();drawing=true;hasInk=true;
+  try{canvas.setPointerCapture(e.pointerId)}catch(err){}
+  lastPoint=getPoint(e);ctx.beginPath();ctx.moveTo(lastPoint.x,lastPoint.y);
+  ctx.lineTo(lastPoint.x+0.1,lastPoint.y+0.1);ctx.stroke();
+});
+canvas.addEventListener("pointermove",e=>{
+  if(!drawing)return;e.preventDefault();
+  const p=getPoint(e);ctx.beginPath();ctx.moveTo(lastPoint.x,lastPoint.y);ctx.lineTo(p.x,p.y);ctx.stroke();lastPoint=p;
+});
+function endDraw(e){
+  if(!drawing)return;drawing=false;lastPoint=null;
+  try{if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId)}catch(err){}
+}
+canvas.addEventListener("pointerup",endDraw);
+canvas.addEventListener("pointercancel",endDraw);
+canvas.addEventListener("lostpointercapture",()=>{drawing=false;lastPoint=null});
+document.getElementById("clearSign").addEventListener("click",()=>{
+  ctx.clearRect(0,0,canvas.width,canvas.height);hasInk=false;
+  document.getElementById("err7").textContent="";
+});
+if("ResizeObserver" in window){new ResizeObserver(()=>setupCanvas()).observe(canvas)}
+else{window.addEventListener("resize",setupCanvas)}
+requestAnimationFrame(setupCanvas);
+
+document.getElementById("finish").addEventListener("click",()=>{
+  if(!hasInk){
+    document.getElementById("err7").textContent="Сначала поставь свою подпись в светлом поле выше.";
+    return;
+  }
+  document.getElementById("certGirl").textContent=enteredGirlFirst+" Белоус";
+  document.getElementById("certBoy").textContent="Алекс Белоус";
+  document.getElementById("certTrip").textContent=new FormData(document.getElementById("quiz2")).get("q2") || "Не выбрано";
+  document.getElementById("certKids").textContent=new FormData(document.getElementById("quiz3")).get("q3") || "Не выбрано";
+  document.getElementById("girlSigLabel").textContent="Подпись "+enteredGirlFirst+" Белоус";
+  document.getElementById("signatureImage").src=canvas.toDataURL("image/png");
+  document.getElementById("certDate").textContent=new Intl.DateTimeFormat("ru-RU",{day:"numeric",month:"long",year:"numeric"}).format(new Date());
+  document.getElementById("step7").classList.remove("active");
+  document.getElementById("certificatePanel").style.display="block";
+  document.getElementById("certificate").classList.add("show");
+  document.getElementById("certificatePanel").scrollIntoView({behavior:"smooth",block:"start"});
+});
+document.getElementById("savePdf").addEventListener("click",()=>window.print());
+</script>
+</body>
+</html>
